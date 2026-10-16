@@ -37,6 +37,11 @@ $activeNav = $activeNav ?? 'home';
 
     <!-- Main Viewport Box (Centered phone simulation on desktop, natural fluid on smartphone) -->
     <div class="app-viewport">
+
+        <?php if (!empty($showSplash)): ?>
+            <?php require_once __DIR__ . '/splash.php'; ?>
+        <?php endif; ?>
+
         <div class="app-container">
 
             <!-- Top Header App Bar -->

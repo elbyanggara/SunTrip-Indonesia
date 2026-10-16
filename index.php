@@ -23,8 +23,8 @@ $packages = $stmt->fetchAll();
 
 $pageTitle = "Biro Perjalanan Wisata & Outing Korporat";
 $activeNav = 'home';
+$showSplash = true;
 require_once __DIR__ . '/includes/header.php';
-require_once __DIR__ . '/includes/splash.php';
 ?>
 
 <!-- Hero Section -->
