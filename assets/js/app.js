@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /**
- * Cinematic Splash Screen & Slideshow Controller
+ * Authentic Editorial Splash Screen Controller
  */
 function initSplashScreen() {
     const splash = document.getElementById('suntrip-splash');
@@ -31,20 +31,20 @@ function initSplashScreen() {
     const nextBtn = document.getElementById('btn-slide-next');
 
     // Slides & Data
-    const slides = splash.querySelectorAll('.splash-slide');
-    const storyBars = splash.querySelectorAll('.story-bar-track');
+    const slides = splash.querySelectorAll('.splash-editorial-slide');
+    const storyBars = splash.querySelectorAll('.story-track');
     const slidesData = window.SUNTRIP_SPLASH_SLIDES || [];
     const totalSlides = slides.length;
 
-    const locTextEl = document.getElementById('splash-loc-text');
-    const badgeTextEl = document.getElementById('splash-badge-text');
-    const titleTextEl = document.getElementById('splash-title-text');
-    const counterEl = document.getElementById('splash-counter');
+    const numLabelEl = document.getElementById('dest-number-label');
+    const typePillEl = document.getElementById('dest-type-pill');
+    const locTextEl = document.getElementById('dest-loc-text');
+    const titleTextEl = document.getElementById('dest-title-text');
 
     let currentSlide = 0;
     let slideTimer = null;
     let progressTimer = null;
-    const SLIDE_DURATION = 4200; // 4.2 seconds per destination
+    const SLIDE_DURATION = 4600; // 4.6 seconds per destination for comfortable reading
 
     function showSlide(index) {
         if (index < 0) index = totalSlides - 1;
@@ -62,7 +62,7 @@ function initSplashScreen() {
 
         // Update Story Progress Bars
         storyBars.forEach((bar, i) => {
-            const fill = bar.querySelector('.story-bar-fill');
+            const fill = bar.querySelector('.story-progress');
             if (i < currentSlide) {
                 bar.classList.add('completed');
                 if (fill) fill.style.width = '100%';
@@ -81,17 +81,13 @@ function initSplashScreen() {
             if (titleTextEl) {
                 titleTextEl.style.opacity = '0';
                 setTimeout(() => {
-                    if (locTextEl) locTextEl.textContent = data.location;
-                    if (badgeTextEl) badgeTextEl.textContent = data.badge;
-                    titleTextEl.textContent = `"${data.title}"`;
+                    if (numLabelEl) numLabelEl.textContent = `${data.number || ('0' + (currentSlide + 1))} / ${totalSlides < 10 ? '0' + totalSlides : totalSlides}`;
+                    if (typePillEl) typePillEl.textContent = data.type;
+                    if (locTextEl) locTextEl.textContent = `📍 ${data.location}`;
+                    titleTextEl.textContent = data.title;
                     titleTextEl.style.opacity = '1';
-                }, 150);
+                }, 160);
             }
-        }
-
-        // Update counter
-        if (counterEl) {
-            counterEl.textContent = `${currentSlide + 1} / ${totalSlides}`;
         }
 
         // Restart slide timing & progress animation
@@ -103,7 +99,7 @@ function initSplashScreen() {
         clearInterval(progressTimer);
 
         const activeBar = storyBars[currentSlide];
-        const fill = activeBar ? activeBar.querySelector('.story-bar-fill') : null;
+        const fill = activeBar ? activeBar.querySelector('.story-progress') : null;
         const startTime = Date.now();
 
         progressTimer = setInterval(() => {
@@ -115,7 +111,7 @@ function initSplashScreen() {
                 clearInterval(progressTimer);
                 showSlide(currentSlide + 1);
             }
-        }, 50);
+        }, 40);
     }
 
     // Previous & Next Controls

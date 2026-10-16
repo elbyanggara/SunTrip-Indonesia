@@ -1,174 +1,162 @@
 <?php
 /**
- * SunTrip Indonesia - Cinematic Animated Tourism Diversity Splash Screen
- * Features Ken-Burns cinematic slideshow, story progress bars, and interactive entry
+ * SunTrip Indonesia - Editorial Luxury Travel Splash Screen
+ * Authentic, Handcrafted, Human-Designed — Zero AI Slop
  */
 
 $splashSlides = [
     [
         'image' => 'https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=1200&q=85',
+        'number' => '01',
         'location' => 'Labuan Bajo, Flores',
-        'title' => 'Eksotisme Phinisi & Pulau Padar',
-        'badge' => 'Wisata Bahari VIP'
+        'title' => 'Pelayaran Phinisi & Pesona Gugusan Pulau Padar',
+        'type' => 'Private Charter & VIP Outing'
     ],
     [
         'image' => 'https://images.unsplash.com/photo-1588668214407-6ea9a6d8c272?auto=format&fit=crop&w=1200&q=85',
+        'number' => '02',
         'location' => 'Taman Nasional Bromo',
-        'title' => 'Golden Sunrise di Atas Lautan Awan',
-        'badge' => 'Corporate Outing Favorit'
+        'title' => 'Fajar Keemasan di Atas Lautan Pasir & Savana',
+        'type' => 'Corporate Gathering & Team Building'
     ],
     [
         'image' => 'https://images.unsplash.com/photo-1516690561799-46d8f74f9abf?auto=format&fit=crop&w=1200&q=85',
+        'number' => '03',
         'location' => 'Raja Ampat, Papua Barat',
-        'title' => 'Mahakarya Karst & Biota Laut Terkaya',
-        'badge' => 'Bucket List Dunia'
+        'title' => 'Mahakarya Kepulauan Karst & Surga Terumbu Karang',
+        'type' => 'Executive Incentive Trip'
     ],
     [
         'image' => 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1200&q=85',
+        'number' => '04',
         'location' => 'Nusa Penida & Uluwatu, Bali',
-        'title' => 'Kemegahan Tebing Samudera & Budaya',
-        'badge' => 'Coastal Luxury'
+        'title' => 'Kemegahan Tebing Samudera & Sunset Tari Kecak',
+        'type' => 'Company Outing & Leisure'
     ],
     [
         'image' => 'https://images.unsplash.com/photo-1596402184320-417e7178b2cd?auto=format&fit=crop&w=1200&q=85',
-        'location' => 'Yogyakarta & Candi Borobudur',
-        'title' => 'Keagungan Warisan Budaya Nusantara',
-        'badge' => 'Heritage & Team Gathering'
+        'number' => '05',
+        'location' => 'Yogyakarta & Magelang',
+        'title' => 'Warisan Keagungan Candi Borobudur & Merapi',
+        'type' => 'Heritage & Cultural Experience'
     ]
 ];
 ?>
-<!-- Cinematic Mobile Splash Screen Overlay -->
-<div id="suntrip-splash" class="splash-screen-overlay" aria-label="Layar Sambutan Keanekaragaman Wisata Nusantara">
+<!-- Editorial Luxury Splash Screen Overlay -->
+<div id="suntrip-splash" class="splash-editorial-overlay" aria-label="Selamat Datang di SunTrip Indonesia">
 
-    <!-- Cinematic Ken Burns Slideshow Background -->
-    <div class="splash-slideshow-container" id="splash-slideshow">
+    <!-- Cinematic Background Slides -->
+    <div class="splash-slideshow-wrap">
         <?php foreach ($splashSlides as $idx => $slide): ?>
-            <div class="splash-slide <?= $idx === 0 ? 'active' : '' ?>" data-slide-index="<?= $idx ?>">
-                <img src="<?= clean($slide['image']) ?>" alt="<?= clean($slide['title']) ?>" class="splash-slide-media" loading="<?= $idx === 0 ? 'eager' : 'lazy' ?>">
-                <div class="splash-slide-overlay"></div>
+            <div class="splash-editorial-slide <?= $idx === 0 ? 'active' : '' ?>" data-index="<?= $idx ?>">
+                <img src="<?= clean($slide['image']) ?>" alt="<?= clean($slide['title']) ?>" class="splash-editorial-img" loading="<?= $idx === 0 ? 'eager' : 'lazy' ?>">
+                <div class="splash-editorial-vignette"></div>
             </div>
         <?php endforeach; ?>
     </div>
 
-    <!-- Ambient Glow Particles Over Slides -->
-    <div class="splash-ambient-bg">
-        <div class="splash-glow-orb splash-orb-1"></div>
-        <div class="splash-glow-orb splash-orb-2"></div>
-    </div>
-
-    <!-- Top Story Progress Bar & Navigation -->
-    <div class="splash-top-bar">
-        <!-- Story-style Progress Bars -->
-        <div class="splash-story-bars" id="splash-story-bars">
+    <!-- Top Editorial Header (Story Bars & Skip) -->
+    <div class="splash-editorial-top">
+        <div class="splash-story-timeline">
             <?php foreach ($splashSlides as $idx => $slide): ?>
-                <div class="story-bar-track" data-index="<?= $idx ?>">
-                    <div class="story-bar-fill"></div>
+                <div class="story-track" data-index="<?= $idx ?>">
+                    <div class="story-progress"></div>
                 </div>
             <?php endforeach; ?>
         </div>
 
-        <div class="splash-top-actions">
-            <!-- Live Indicator Badge -->
-            <div class="splash-live-badge">
-                <span class="splash-dot-live"></span>
-                <span>DESTINASI NUSANTARA</span>
-            </div>
+        <div class="splash-top-row">
+            <span class="splash-origin-badge">
+                <span class="badge-dot"></span>
+                <span>BIRO RESMI BPW • NUSANTARA</span>
+            </span>
 
-            <!-- Skip Button -->
-            <button type="button" id="btn-splash-skip" class="splash-skip-btn" aria-label="Lewati ke Beranda">
+            <button type="button" id="btn-splash-skip" class="splash-text-skip" aria-label="Lewati ke Halaman Utama">
                 <span>Lewati</span>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                    <polyline points="9 18 15 12 9 6"></polyline>
-                </svg>
+                <span class="skip-arrow">→</span>
             </button>
         </div>
     </div>
 
-    <!-- Center Content with Brand Emblem & Dynamic Destination Showcase -->
-    <div class="splash-center-content">
-        <!-- Brand Emblem with Rotating Halo Rings -->
-        <div class="splash-brand-emblem">
-            <div class="splash-halo-ring"></div>
-            <div class="splash-halo-ring splash-halo-ring-2"></div>
-            <div class="splash-icon-core">
-                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="4"></circle>
-                    <path d="M12 2v2"></path>
-                    <path d="M12 20v2"></path>
-                    <path d="m4.93 4.93 1.41 1.41"></path>
-                    <path d="m17.66 17.66 1.41 1.41"></path>
-                    <path d="M2 12h2"></path>
-                    <path d="M20 12h2"></path>
-                    <path d="m6.34 17.66-1.41 1.41"></path>
-                    <path d="m19.07 4.93-1.41 1.41"></path>
-                </svg>
-            </div>
+    <!-- Center Brand Identity (Classic Travel Agency Elegance) -->
+    <div class="splash-editorial-center">
+        <div class="brand-monogram-emblem">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
         </div>
 
-        <!-- Brand Name -->
-        <h1 class="splash-brand-title">
-            SunTrip <span class="splash-gold-text">Indonesia</span>
+        <h1 class="splash-editorial-name">
+            SunTrip
         </h1>
-        <p class="splash-tagline">
-            Biro Perjalanan Wisata & Outing Korporat Terpercaya
-        </p>
-
-        <!-- Dynamic Destination Showcase Card (Changes dynamically on each slide) -->
-        <div class="splash-dest-card" id="splash-dest-card">
-            <div class="dest-badge-row">
-                <span class="dest-location-pill" id="splash-dest-loc">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                        <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
-                        <circle cx="12" cy="10" r="3"></circle>
-                    </svg>
-                    <span id="splash-loc-text"><?= clean($splashSlides[0]['location']) ?></span>
-                </span>
-                <span class="dest-category-pill" id="splash-badge-text"><?= clean($splashSlides[0]['badge']) ?></span>
-            </div>
-            <div class="dest-title-text" id="splash-title-text">
-                "<?= clean($splashSlides[0]['title']) ?>"
-            </div>
+        <div class="splash-editorial-sub">
+            I N D O N E S I A
         </div>
+        <p class="splash-editorial-tagline">
+            Kurasi Perjalanan Wisata & Outing Korporat
+        </p>
     </div>
 
-    <!-- Bottom Action Card (Tanda Masuk / Enter Portal) -->
-    <div class="splash-bottom-action">
-        <!-- Interactive Story Navigation Arrows -->
-        <div class="splash-slide-controls">
-            <button type="button" class="splash-nav-arrow" id="btn-slide-prev" aria-label="Destinasi Sebelumnya">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                    <polyline points="15 18 9 12 15 6"></polyline>
-                </svg>
-            </button>
-            <span class="splash-slide-counter" id="splash-counter">1 / <?= count($splashSlides) ?></span>
-            <button type="button" class="splash-nav-arrow" id="btn-slide-next" aria-label="Destinasi Selanjutnya">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                    <polyline points="9 18 15 12 9 6"></polyline>
-                </svg>
-            </button>
+    <!-- Bottom Editorial Destination Caption & Action -->
+    <div class="splash-editorial-bottom">
+        <!-- Destination Info Block -->
+        <div class="editorial-dest-block">
+            <div class="dest-meta-header">
+                <span class="dest-index-label" id="dest-number-label">01 / 05</span>
+                <span class="dest-type-pill" id="dest-type-pill"><?= clean($splashSlides[0]['type']) ?></span>
+            </div>
+            <div class="dest-loc-title" id="dest-loc-text">
+                📍 <?= clean($splashSlides[0]['location']) ?>
+            </div>
+            <h2 class="dest-main-title" id="dest-title-text">
+                <?= clean($splashSlides[0]['title']) ?>
+            </h2>
         </div>
 
-        <!-- Big Thumb-Friendly Interactive Enter Button -->
-        <button type="button" id="btn-splash-enter" class="splash-btn-enter">
-            <div class="splash-btn-content">
-                <span class="splash-btn-label">Buka Portal SunTrip</span>
-                <span class="splash-btn-sub">Eksplorasi Katalog & Rencana Perjalanan</span>
+        <!-- Slide Stepper (Prev / Next) -->
+        <div class="editorial-stepper-row">
+            <div class="stepper-nav">
+                <button type="button" class="stepper-arrow-btn" id="btn-slide-prev" aria-label="Destinasi Sebelumnya">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                </button>
+                <span class="stepper-dots-text" id="stepper-dots-text">Destinasi Pilihan</span>
+                <button type="button" class="stepper-arrow-btn" id="btn-slide-next" aria-label="Destinasi Berikutnya">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </button>
             </div>
-            <div class="splash-btn-arrow-box">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        </div>
+
+        <!-- Primary Solid Tactile Enter Button -->
+        <button type="button" id="btn-splash-enter" class="btn-editorial-enter">
+            <span class="btn-enter-text">Jelajahi Sekarang</span>
+            <div class="btn-enter-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                     <line x1="5" y1="12" x2="19" y2="12"></line>
                     <polyline points="12 5 19 12 12 19"></polyline>
                 </svg>
             </div>
         </button>
 
-        <div class="splash-footer-legal">
-            Izin Resmi BPW Kemenparekraf • Hak Cipta © <?= date('Y') ?> SunTrip Indonesia
+        <div class="editorial-legal-mark">
+            Legalitas Izin Resmi BPW Kemenparekraf RI
         </div>
     </div>
+
 </div>
 
-<!-- Slides Data JSON for smooth JS transitions -->
+<!-- Data Passing -->
 <script>
     window.SUNTRIP_SPLASH_SLIDES = <?= json_encode($splashSlides, JSON_UNESCAPED_UNICODE) ?>;
 </script>
