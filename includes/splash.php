@@ -107,37 +107,6 @@ $splashSlides = [
 
     <!-- Bottom Editorial Destination Caption & Action -->
     <div class="splash-editorial-bottom">
-        <!-- Destination Info Block -->
-        <div class="editorial-dest-block">
-            <div class="dest-meta-header">
-                <span class="dest-index-label" id="dest-number-label">01 / 05</span>
-                <span class="dest-type-pill" id="dest-type-pill"><?= clean($splashSlides[0]['type']) ?></span>
-            </div>
-            <div class="dest-loc-title" id="dest-loc-text">
-                📍 <?= clean($splashSlides[0]['location']) ?>
-            </div>
-            <h2 class="dest-main-title" id="dest-title-text">
-                <?= clean($splashSlides[0]['title']) ?>
-            </h2>
-        </div>
-
-        <!-- Slide Stepper (Prev / Next) -->
-        <div class="editorial-stepper-row">
-            <div class="stepper-nav">
-                <button type="button" class="stepper-arrow-btn" id="btn-slide-prev" aria-label="Destinasi Sebelumnya">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                        <polyline points="15 18 9 12 15 6"></polyline>
-                    </svg>
-                </button>
-                <span class="stepper-dots-text" id="stepper-dots-text">Destinasi Pilihan</span>
-                <button type="button" class="stepper-arrow-btn" id="btn-slide-next" aria-label="Destinasi Berikutnya">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                        <polyline points="9 18 15 12 9 6"></polyline>
-                    </svg>
-                </button>
-            </div>
-        </div>
-
         <!-- Primary Solid Tactile Enter Button -->
         <button type="button" id="btn-splash-enter" class="btn-editorial-enter">
             <span class="btn-enter-text">Jelajahi Sekarang</span>

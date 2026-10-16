@@ -31,24 +31,16 @@ function initSplashScreen() {
 
     const enterBtn = document.getElementById('btn-splash-enter');
     const skipBtn = document.getElementById('btn-splash-skip');
-    const prevBtn = document.getElementById('btn-slide-prev');
-    const nextBtn = document.getElementById('btn-slide-next');
 
     // Slides & Data
     const slides = splash.querySelectorAll('.splash-editorial-slide');
     const storyBars = splash.querySelectorAll('.story-track');
-    const slidesData = window.SUNTRIP_SPLASH_SLIDES || [];
     const totalSlides = slides.length;
-
-    const numLabelEl = document.getElementById('dest-number-label');
-    const typePillEl = document.getElementById('dest-type-pill');
-    const locTextEl = document.getElementById('dest-loc-text');
-    const titleTextEl = document.getElementById('dest-title-text');
 
     let currentSlide = 0;
     let slideTimer = null;
     let progressTimer = null;
-    const SLIDE_DURATION = 4600; // 4.6 seconds per destination for comfortable reading
+    const SLIDE_DURATION = 4600; // 4.6 seconds per destination for comfortable viewing
 
     function showSlide(index) {
         if (index < 0) index = totalSlides - 1;
@@ -79,21 +71,6 @@ function initSplashScreen() {
             }
         });
 
-        // Animate dynamic text update with soft fade
-        if (slidesData[currentSlide]) {
-            const data = slidesData[currentSlide];
-            if (titleTextEl) {
-                titleTextEl.style.opacity = '0';
-                setTimeout(() => {
-                    if (numLabelEl) numLabelEl.textContent = `${data.number || ('0' + (currentSlide + 1))} / ${totalSlides < 10 ? '0' + totalSlides : totalSlides}`;
-                    if (typePillEl) typePillEl.textContent = data.type;
-                    if (locTextEl) locTextEl.textContent = `📍 ${data.location}`;
-                    titleTextEl.textContent = data.title;
-                    titleTextEl.style.opacity = '1';
-                }, 160);
-            }
-        }
-
         // Restart slide timing & progress animation
         startProgress();
     }
@@ -116,19 +93,6 @@ function initSplashScreen() {
                 showSlide(currentSlide + 1);
             }
         }, 40);
-    }
-
-    // Previous & Next Controls
-    if (prevBtn) {
-        prevBtn.addEventListener('click', () => {
-            showSlide(currentSlide - 1);
-        });
-    }
-
-    if (nextBtn) {
-        nextBtn.addEventListener('click', () => {
-            showSlide(currentSlide + 1);
-        });
     }
 
     // Story bar direct tap
