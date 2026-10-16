@@ -22,8 +22,12 @@ function initSplashScreen() {
 
     if (!forceSplash && sessionStorage.getItem('suntrip_splash_seen')) {
         splash.style.display = 'none';
+        document.body.classList.remove('splash-active');
         return;
     }
+
+    // Hide bottom navigation while splash is active
+    document.body.classList.add('splash-active');
 
     const enterBtn = document.getElementById('btn-splash-enter');
     const skipBtn = document.getElementById('btn-splash-skip');
@@ -139,6 +143,7 @@ function initSplashScreen() {
         clearInterval(slideTimer);
         clearInterval(progressTimer);
         splash.classList.add('dismissed');
+        document.body.classList.remove('splash-active');
         sessionStorage.setItem('suntrip_splash_seen', '1');
         setTimeout(() => {
             splash.style.display = 'none';
@@ -153,6 +158,7 @@ function initSplashScreen() {
     replayBtns.forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.preventDefault();
+            document.body.classList.add('splash-active');
             splash.style.display = 'flex';
             void splash.offsetWidth; // Force reflow
             splash.classList.remove('dismissed');

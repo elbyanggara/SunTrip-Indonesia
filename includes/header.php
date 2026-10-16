@@ -26,7 +26,7 @@ $activeNav = $activeNav ?? 'home';
     <!-- Stylesheet -->
     <link rel="stylesheet" href="/assets/css/style.css">
 </head>
-<body>
+<body class="<?= (!empty($showSplash) ? 'splash-active ' : '') . clean($bodyClass ?? '') ?>">
 
     <!-- Desktop View Toggle Bar (Only visible on tablet & desktop screen) -->
     <div class="desktop-view-toggle">

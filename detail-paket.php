@@ -33,6 +33,8 @@ $excludes = json_decode($package['excludes_json'], true) ?? [];
 
 $pageTitle = $package['title'];
 $activeNav = 'paket';
+$bodyClass = 'has-sticky-bar';
+$hideBottomNav = true;
 require_once __DIR__ . '/includes/header.php';
 ?>
 
@@ -251,6 +253,9 @@ require_once __DIR__ . '/includes/header.php';
 
 </div> <!-- /detail-body -->
 
+<?php
+ob_start();
+?>
 <!-- Sticky Bottom Bar for Detail Page -->
 <aside class="sticky-detail-bar">
     <div class="sticky-price-group">
@@ -281,5 +286,7 @@ require_once __DIR__ . '/includes/header.php';
         </button>
     <?php endif; ?>
 </aside>
-
-<?php require_once __DIR__ . '/includes/footer.php'; ?>
+<?php
+$customBottomBar = ob_get_clean();
+require_once __DIR__ . '/includes/footer.php';
+?>
