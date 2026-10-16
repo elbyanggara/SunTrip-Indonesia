@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /**
- * Splash Screen Controller
+ * Cinematic Splash Screen & Slideshow Controller
  */
 function initSplashScreen() {
     const splash = document.getElementById('suntrip-splash');
@@ -27,8 +27,121 @@ function initSplashScreen() {
 
     const enterBtn = document.getElementById('btn-splash-enter');
     const skipBtn = document.getElementById('btn-splash-skip');
+    const prevBtn = document.getElementById('btn-slide-prev');
+    const nextBtn = document.getElementById('btn-slide-next');
 
+    // Slides & Data
+    const slides = splash.querySelectorAll('.splash-slide');
+    const storyBars = splash.querySelectorAll('.story-bar-track');
+    const slidesData = window.SUNTRIP_SPLASH_SLIDES || [];
+    const totalSlides = slides.length;
+
+    const locTextEl = document.getElementById('splash-loc-text');
+    const badgeTextEl = document.getElementById('splash-badge-text');
+    const titleTextEl = document.getElementById('splash-title-text');
+    const counterEl = document.getElementById('splash-counter');
+
+    let currentSlide = 0;
+    let slideTimer = null;
+    let progressTimer = null;
+    const SLIDE_DURATION = 4200; // 4.2 seconds per destination
+
+    function showSlide(index) {
+        if (index < 0) index = totalSlides - 1;
+        if (index >= totalSlides) index = 0;
+        currentSlide = index;
+
+        // Update slides visibility
+        slides.forEach((slide, i) => {
+            if (i === currentSlide) {
+                slide.classList.add('active');
+            } else {
+                slide.classList.remove('active');
+            }
+        });
+
+        // Update Story Progress Bars
+        storyBars.forEach((bar, i) => {
+            const fill = bar.querySelector('.story-bar-fill');
+            if (i < currentSlide) {
+                bar.classList.add('completed');
+                if (fill) fill.style.width = '100%';
+            } else if (i === currentSlide) {
+                bar.classList.remove('completed');
+                if (fill) fill.style.width = '0%';
+            } else {
+                bar.classList.remove('completed');
+                if (fill) fill.style.width = '0%';
+            }
+        });
+
+        // Animate dynamic text update with soft fade
+        if (slidesData[currentSlide]) {
+            const data = slidesData[currentSlide];
+            if (titleTextEl) {
+                titleTextEl.style.opacity = '0';
+                setTimeout(() => {
+                    if (locTextEl) locTextEl.textContent = data.location;
+                    if (badgeTextEl) badgeTextEl.textContent = data.badge;
+                    titleTextEl.textContent = `"${data.title}"`;
+                    titleTextEl.style.opacity = '1';
+                }, 150);
+            }
+        }
+
+        // Update counter
+        if (counterEl) {
+            counterEl.textContent = `${currentSlide + 1} / ${totalSlides}`;
+        }
+
+        // Restart slide timing & progress animation
+        startProgress();
+    }
+
+    function startProgress() {
+        clearInterval(slideTimer);
+        clearInterval(progressTimer);
+
+        const activeBar = storyBars[currentSlide];
+        const fill = activeBar ? activeBar.querySelector('.story-bar-fill') : null;
+        const startTime = Date.now();
+
+        progressTimer = setInterval(() => {
+            const elapsed = Date.now() - startTime;
+            const percent = Math.min((elapsed / SLIDE_DURATION) * 100, 100);
+            if (fill) fill.style.width = percent + '%';
+
+            if (percent >= 100) {
+                clearInterval(progressTimer);
+                showSlide(currentSlide + 1);
+            }
+        }, 50);
+    }
+
+    // Previous & Next Controls
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            showSlide(currentSlide - 1);
+        });
+    }
+
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            showSlide(currentSlide + 1);
+        });
+    }
+
+    // Story bar direct tap
+    storyBars.forEach((bar, i) => {
+        bar.addEventListener('click', () => {
+            showSlide(i);
+        });
+    });
+
+    // Dismissal logic
     function dismissSplash() {
+        clearInterval(slideTimer);
+        clearInterval(progressTimer);
         splash.classList.add('dismissed');
         sessionStorage.setItem('suntrip_splash_seen', '1');
         setTimeout(() => {
@@ -39,17 +152,20 @@ function initSplashScreen() {
     if (enterBtn) enterBtn.addEventListener('click', dismissSplash);
     if (skipBtn) skipBtn.addEventListener('click', dismissSplash);
 
-    // Replay button triggers
+    // Replay button triggers from footer or URL
     const replayBtns = document.querySelectorAll('[data-replay-splash]');
     replayBtns.forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.preventDefault();
             splash.style.display = 'flex';
-            // Force reflow
-            void splash.offsetWidth;
+            void splash.offsetWidth; // Force reflow
             splash.classList.remove('dismissed');
+            showSlide(0);
         });
     });
+
+    // Start initial slide & animation
+    showSlide(0);
 }
 
 /**
