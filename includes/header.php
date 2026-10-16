@@ -23,8 +23,8 @@ $activeNav = $activeNav ?? 'home';
     <meta property="og:description" content="<?= SITE_DESCRIPTION ?>">
     <meta property="og:type" content="website">
 
-    <!-- Stylesheet -->
-    <link rel="stylesheet" href="/assets/css/style.css">
+    <!-- Stylesheet with Cache Busting -->
+    <link rel="stylesheet" href="/assets/css/style.css?v=<?= filemtime(__DIR__ . '/../assets/css/style.css') ?>">
 </head>
 <body class="<?= (!empty($showSplash) ? 'splash-active ' : '') . clean($bodyClass ?? '') ?>">
 

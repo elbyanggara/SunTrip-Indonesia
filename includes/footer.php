@@ -136,7 +136,7 @@ $activeNav = $activeNav ?? 'home';
 
     </div> <!-- /app-viewport -->
 
-    <!-- Scripts -->
-    <script src="/assets/js/app.js"></script>
+    <!-- Scripts with Cache Busting -->
+    <script src="/assets/js/app.js?v=<?= filemtime(__DIR__ . '/../assets/js/app.js') ?>"></script>
 </body>
 </html>
