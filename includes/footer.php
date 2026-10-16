@@ -21,7 +21,10 @@ $activeNav = $activeNav ?? 'home';
 
                 <div class="footer-legal">
                     <span><?= LEGAL_LICENSE ?></span>
-                    <a href="/admin/login.php" style="font-size: 9px; opacity: 0.6;">Portal Admin</a>
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <a href="/?splash=1" data-replay-splash style="font-size: 10px; color: #F59E0B; text-decoration: none;">✨ Putar Splash</a>
+                        <a href="/admin/login.php" style="font-size: 9px; opacity: 0.6;">Portal Admin</a>
+                    </div>
                 </div>
             </footer>
 

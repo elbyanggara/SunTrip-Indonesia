@@ -3,10 +3,54 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+    initSplashScreen();
     initModalGatekeeper();
     initDesktopToggle();
     initWhatsAppLinks();
 });
+
+/**
+ * Splash Screen Controller
+ */
+function initSplashScreen() {
+    const splash = document.getElementById('suntrip-splash');
+    if (!splash) return;
+
+    // Check if user requested to view or already viewed in this session
+    const urlParams = new URLSearchParams(window.location.search);
+    const forceSplash = urlParams.get('splash') === '1';
+
+    if (!forceSplash && sessionStorage.getItem('suntrip_splash_seen')) {
+        splash.style.display = 'none';
+        return;
+    }
+
+    const enterBtn = document.getElementById('btn-splash-enter');
+    const skipBtn = document.getElementById('btn-splash-skip');
+
+    function dismissSplash() {
+        splash.classList.add('dismissed');
+        sessionStorage.setItem('suntrip_splash_seen', '1');
+        setTimeout(() => {
+            splash.style.display = 'none';
+        }, 700);
+    }
+
+    if (enterBtn) enterBtn.addEventListener('click', dismissSplash);
+    if (skipBtn) skipBtn.addEventListener('click', dismissSplash);
+
+    // Replay button triggers
+    const replayBtns = document.querySelectorAll('[data-replay-splash]');
+    replayBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            splash.style.display = 'flex';
+            // Force reflow
+            void splash.offsetWidth;
+            splash.classList.remove('dismissed');
+        });
+    });
+}
 
 /**
  * Toast Notification Helper
